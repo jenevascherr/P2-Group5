@@ -7,7 +7,8 @@ $theFormula='';
     $convertTemp = $_POST['convertTemp'];
     $tEmp = $_POST['tEmp'];
     // The type of conversion is determined the string $convertTemp ("FtoC" = Farenheight to Celcius)
-    switch($convertTemp){
+    switch($convertTemp)
+    {
         case 'FtoC':
             $newTemp = (($tEmp - 32)* (5/9));
             break;
