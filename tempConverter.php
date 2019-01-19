@@ -2,6 +2,9 @@
 $message=''; 
 $theFormula=''; 
 
+  //A quick formula to check if what the user typed as tEmp was a numeric number and not a string
+  if(is_numeric($tEmp){
+
   // If the page is accessed by the user submitting the form (method = "post") use the submitted data to calculate the tempurature.
   if(isset($_POST['convertTemp']) && isset($_POST['tEmp'])) {
     $convertTemp = $_POST['convertTemp'];
@@ -53,9 +56,12 @@ $theFormula='';
             <input type="submit" value="Convert Tempurature!">
           </form>
         </body>
-      </html>
-      
-      
-    ';
+      </html>';
+	    //Shows an error message if what was entered was not numeric
+      } else {
+	  echo var_export($tEmp, true) . " is not an numeric number." , PHP_EOL;
+	  echo "Please try again"
+  	}
   }
 ?>
+      
