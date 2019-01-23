@@ -30,7 +30,7 @@ $theFormula='';
            $newTemp = (($tEmp * 9/5) + 32);
             break;      
     }
-    echo "<h2 align='center'>The initial temperature was " . $tEmp . " and the converted temperature is: " . $newTemp . "</h2>";
+    echo "<h2 align='center'>The initial temperature was " . $tEmp . "&#176 and the converted temperature is: " . $newTemp . "&#176 </h2>";
   }
   // When the page is initialy loaded (method = get) display the form
   else {
