@@ -42,7 +42,7 @@ $theFormula='';
           <form align="center" method="POST">
             Enter the tempurature you wish to convert:<input type="number" name="tEmp"> 
 			
-	    <!-- Currently, the application uses a dropdown menu. The submited value is converted into $convertTemp -->
+	    <!-- Currently, the application uses a dropdown menu. The submited value is converted into $convertTemp 
             <select name="convertTemp">
             	<option value="FtoC">Fahrenheit to Celsius</option>
                 <option value="FtoK">Fahrenheit to Kelvin</option>
@@ -50,8 +50,29 @@ $theFormula='';
                 <option value="KtoC">Kelvin to Celsius</option>
                 <option value="CtoK">Celsius to Kelvin</option>
                 <option value="CtoF">Celsius to Fahrenheit</option>
-			</select>
-         
+			</select> -->
+			
+	    <input type="radio" name="convertTemp"
+	    <?php if (isset($convertTemp) && $convertTemp=="FtoC") echo "checked";?>
+	    value="FtoC">Fahrenheit to Celsius
+            <input type="radio" name="convertTemp"
+	    <?php if (isset($convertTemp) && $convertTemp=="FtoK") echo "checked";?>
+	    value="FtoK">Fahrenheit to Kelvin
+	    <input type="radio" name="convertTemp"
+	    <?php if (isset($convertTemp) && $convertTemp=="KtoF") echo "checked";?>
+	    value="KtoF">Kelvin to Fahrenheit
+	    <input type="radio" name="convertTemp"
+	    <?php if (isset($convertTemp) && $convertTemp=="FtoC") echo "checked";?>
+	    value="FtoC">Fahrenheit to Celsius
+	    <input type="radio" name="convertTemp"
+	    <?php if (isset($convertTemp) && $convertTemp=="KtoC") echo "checked";?>
+	    value="KtoC">Kelvin to Celsius
+	    <input type="radio" name="convertTemp"
+	    <?php if (isset($convertTemp) && $convertTemp=="CtoK") echo "checked";?>
+	    value="CtoK">Celsius to Kelvin
+	    <input type="radio" name="convertTemp"
+	    <?php if (isset($convertTemp) && $convertTemp=="CtoF") echo "checked";?>
+	    value="CtoF">Celsius to Fahrenheit
             <br>
             <br>
             <input type="submit" value="Convert Tempurature!">
@@ -61,7 +82,7 @@ $theFormula='';
 	    //Shows an error message if what was entered was not numeric
       } else {
 	  echo var_export($tEmp, true) . " is not an numeric number." , PHP_EOL;
-	  echo "Please try again"
+	  echo "Please try again";
   	}
   }
 ?>
