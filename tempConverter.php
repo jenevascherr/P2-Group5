@@ -29,7 +29,10 @@ $theFormula='';
             break;
         case 'CtoF':
            $newTemp = (($tEmp * 9/5) + 32);
-            break;      
+            break;   
+	default:
+            echo '<p style="text-align:center;">Fatal Error</p>';
+            die();
     }
     echo "<h2 align='center'>The initial temperature was " . $tEmp . "&#176 and the converted temperature is: " . $newTemp . "&#176 </h2>";
   }
