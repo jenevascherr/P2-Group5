@@ -1,92 +1,91 @@
-<?php
-$message=''; 
-$theFormula=''; 
-
-  //A quick formula to check if what the user typed as tEmp was a numeric number and not a string
-  if(is_numeric($tEmp){
-
-  // If the page is accessed by the user submitting the form (method = "post") use the submitted data to calculate the tempurature.
-  if(isset($_POST['convertTemp']) && isset($_POST['tEmp'])) {
-    $convertTemp = $_POST['convertTemp'];
-    $tEmp = $_POST['tEmp'];
-    // The type of conversion is determined the string $convertTemp ("FtoC" = Farenheight to Celcius)
-    switch($convertTemp)
-    {
-        case 'FtoC':
-            $newTemp = (($tEmp - 32)* (5/9));
-            break;
-        case 'FtoK':
-           $newTemp = (($tEmp - 32)* (5/9) + 273.15);
-            break;
-        case 'KtoF':
-           $newTemp = (($tEmp - 273.15)* (9/5) + 32);
-            break;
-         case 'KtoC':
-           $newTemp = ($tEmp - 273.15);
-            break;
-        case 'CtoK':
-           $newTemp = ($tEmp + 273.15);
-            break;
-        case 'CtoF':
-           $newTemp = (($tEmp * 9/5) + 32);
-            break;   
-	default:
-            echo '<p style="text-align:center;">Fatal Error</p>';
-            die();
-    }
-    echo "<h2 align='center'>The initial temperature was " . round($tEmp, 2) . "&#176 and the converted temperature is: " . round($newTemp, 2) . "&#176 </h2>";
-  }
-  // When the page is initialy loaded (method = get) display the form
-  else {
-    echo'
-      <html>
-        <body>
-          <h1 align="center">Convert a Temperature</h1>
-          <form align="center" method="POST">
-            Enter the tempurature you wish to convert:<input type="number" name="tEmp"> 
-			
-	    <!-- Currently, the application uses a dropdown menu. The submited value is converted into $convertTemp 
-            <select name="convertTemp">
-            	<option value="FtoC">Fahrenheit to Celsius</option>
-                <option value="FtoK">Fahrenheit to Kelvin</option>
-                <option value="KtoF">Kelvin to Fahrenheit</option>
-                <option value="KtoC">Kelvin to Celsius</option>
-                <option value="CtoK">Celsius to Kelvin</option>
-                <option value="CtoF">Celsius to Fahrenheit</option>
-			</select> -->
-			
-	    <input type="radio" name="convertTemp"
-	    <?php if (isset($convertTemp) && $convertTemp=="FtoC") echo "checked";?>
-	    value="FtoC">Fahrenheit to Celsius
-            <input type="radio" name="convertTemp"
-	    <?php if (isset($convertTemp) && $convertTemp=="FtoK") echo "checked";?>
-	    value="FtoK">Fahrenheit to Kelvin
-	    <input type="radio" name="convertTemp"
-	    <?php if (isset($convertTemp) && $convertTemp=="KtoF") echo "checked";?>
-	    value="KtoF">Kelvin to Fahrenheit
-	    <input type="radio" name="convertTemp"
-	    <?php if (isset($convertTemp) && $convertTemp=="FtoC") echo "checked";?>
-	    value="FtoC">Fahrenheit to Celsius
-	    <input type="radio" name="convertTemp"
-	    <?php if (isset($convertTemp) && $convertTemp=="KtoC") echo "checked";?>
-	    value="KtoC">Kelvin to Celsius
-	    <input type="radio" name="convertTemp"
-	    <?php if (isset($convertTemp) && $convertTemp=="CtoK") echo "checked";?>
-	    value="CtoK">Celsius to Kelvin
-	    <input type="radio" name="convertTemp"
-	    <?php if (isset($convertTemp) && $convertTemp=="CtoF") echo "checked";?>
-	    value="CtoF">Celsius to Fahrenheit
-            <br>
-            <br>
-            <input type="submit" value="Convert Tempurature!">
-          </form>
-        </body>
-      </html>';
-	    //Shows an error message if what was entered was not numeric
-      } else {
-	  echo var_export($tEmp, true) . " is not an numeric number." , PHP_EOL;
-	  echo "Please try again";
-  	}
-  }
-?>
-      
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <?php
+            /*
+                If the user submitted the form, set the values to the 
+                input from post
+            */
+            $outString = "";
+            $newTemp = "";
+            // If the method was post
+            if($_SERVER["REQUEST_METHOD"] == "POST"){
+                // If there are values for the tempurature and conversion
+                if(isset($_POST['rad']) && isset($_POST['inTemp'])) {
+                    $conversion = $_POST["rad"][0] . "to" . $_POST["rad"][1];
+                    $temp = $_POST['inTemp'];
+                    //A quick formula to check if what the user typed as tEmp was a numeric number and not a string
+                    if(!is_numeric($temp)){
+                        $outString = "Please input a number";
+                    }
+                    else{
+                        /*
+                            'rad' is an array of input from both radio buttons
+                            rad[i] is accessed by '$_POST["rad"][i]'
+                        */
+                        switch($conversion)
+                        {
+                            case 'FtoC':
+                                $newTemp = (($temp - 32)* (5/9));
+                                $outString = $temp . "F equals " . $newTemp . "C";
+                                break;
+                            case 'FtoK':
+                                $newTemp = (($temp - 32)* (5/9) + 273.15);
+                                $outString = $temp . "F equals " . $newTemp . "K";
+                                break;
+                            case 'KtoF':
+                                $newTemp = (($temp - 273.15)* (9/5) + 32);
+                                $outString = $temp . "K equals " . $newTemp . "F";
+                                break;
+                            case 'KtoC':
+                                $newTemp = ($temp - 273.15);
+                                $outString = $temp . "K equals " . $newTemp . "C";
+                                break;
+                            case 'CtoK':
+                                $newTemp = ($temp + 273.15);
+                                $outString = $temp . "C equals " . $newTemp . "F";
+                                break;
+                            case 'CtoF':
+                                $newTemp = (($temp * 9/5) + 32);
+                                $outString = $temp . "C equals " . $newTemp . "F";
+                                break;   
+                            // Default occurs when the user selects the same unit on both forms
+                            default:
+                                $outString = $temp . " = " . $temp;
+                                break;
+                        }
+                    }
+                }
+            }
+            /*
+                If the user entered the page without submitting the form
+                first, do nothing, leaving 'val1' and 'val2' as null values
+            */
+        ?>
+        <form method="POST">
+            <lable>Convert </lable>
+            <input type="text" name="inTemp" />
+            <div id="group1">
+                <!-- First group of radio buttons 'rad[0]' -->
+                <lable>From: </lable>
+                <input type="radio" name="rad[0]" value="F">F</input>
+                <input type="radio" name="rad[0]" value="C">C</input>
+                <input type="radio" name="rad[0]" value="K">K</input>
+            </div>
+            <div id="group2">
+                <!-- Second group of radio buttons 'rad[1]' -->
+                <lable>To:</lable>
+                <input type="radio" name="rad[1]" value="F">F</input>
+                <input type="radio" name="rad[1]" value="C">C</input>
+                <input type="radio" name="rad[1]" value="K">K</input>
+            </div>
+            <input type="submit" value="Submit"></input>
+        </form>
+        <?php
+            echo $outString;
+        ?>
+    </body>
+</html>     
